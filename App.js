@@ -69,7 +69,7 @@ export default function BackgroundFetchScreen() {
           </Text>
         </Text>
         <Text>
-          Background fetch task name:{' '}
+          Background fetch task name :{' '}
           <Text style={styles.boldText}>
             {isRegistered ? BACKGROUND_FETCH_TASK : 'Not registered yet!'}
           </Text>
