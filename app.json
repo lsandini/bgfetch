@@ -14,8 +14,13 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": ["location", "fetch", "remote-notification"]
-      }
+        "UIBackgroundModes": [
+          "location",
+          "fetch",
+          "remote-notification"
+        ]
+      },
+      "bundleIdentifier": "com.lsandini.bgfetch"
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +30,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9bfd87c8-8f42-4f1d-bf8c-063969811214"
+      }
     }
   }
 }
