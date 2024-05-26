@@ -18,7 +18,8 @@
     "@expo/metro-runtime": "~3.2.1",
     "@expo/webpack-config": "^19.0.0",
     "expo-background-fetch": "~11.3.0",
-    "expo-task-manager": "~11.3.0"
+    "expo-task-manager": "~11.3.0",
+    "expo-notifications": "~0.20.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

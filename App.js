@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
+import * as Notifications from 'expo-notifications';
 
 const BACKGROUND_FETCH_TASK = 'background-fetch';
 
@@ -34,6 +35,16 @@ const uploadDataToAPI = async (apiUrl) => {
     }
 
     console.log('Data uploaded to API successfully');
+
+    // Schedule a local notification
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Background Fetch",
+        body: `Data uploaded to API successfully at ${currentTime}`,
+      },
+      trigger: null,
+    });
+
   } catch (error) {
     console.error('Error uploading data to API:', error);
   }
@@ -68,6 +79,19 @@ async function unregisterBackgroundFetchAsync() {
 }
 
 export default function BackgroundFetchScreen() {
+
+  useEffect(() => {
+    // Request permission to show notifications on component mount
+    const requestNotificationPermission = async () => {
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status !== 'granted') {
+        alert('No notification permissions. The app might not work as expected.');
+      }
+    };
+
+    requestNotificationPermission();
+  }, []);
+  
   const [isRegistered, setIsRegistered] = React.useState(false);
   const [status, setStatus] = React.useState(null);
 
