@@ -5,6 +5,14 @@ import * as TaskManager from 'expo-task-manager';
 import * as Notifications from 'expo-notifications';
 import { useEffect, useState } from 'react';
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 const BACKGROUND_FETCH_TASK = 'background-fetch';
 
 // Function to upload data to API
@@ -87,9 +95,13 @@ export default function BackgroundFetchScreen() {
       const { status } = await Notifications.requestPermissionsAsync();
       if (status !== 'granted') {
         alert('No notification permissions. The app might not work as expected.');
+        // Disable certain functionality
+        setIsRegistered(false);
+        // Or continually prompt the user to enable notifications
+        requestNotificationPermission();
       }
     };
-
+  
     requestNotificationPermission();
   }, []);
   
