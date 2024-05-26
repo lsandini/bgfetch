@@ -1,5 +1,5 @@
 #!/bin/bash
 
 git add .
-git commit -m "eas stuff"
+git commit -m "task modified"
 git push -u origin main

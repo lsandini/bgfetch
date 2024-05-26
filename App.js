@@ -5,12 +5,47 @@ import * as TaskManager from 'expo-task-manager';
 
 const BACKGROUND_FETCH_TASK = 'background-fetch';
 
+// Function to upload data to API
+const apiUrl = 'https://ns-1.oracle.cgmsim.com/api/v1/activity';
+
+const uploadDataToAPI = async (apiUrl) => {
+  try {
+    // Get current time in HH:mm:ss format
+    const now = new Date();
+    const currentTime = now.toISOString().split('T')[1].split('.')[0];
+
+    // Replace 'your-api-endpoint' with your actual API endpoint
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-secret': '51f93ca9b254733807d44e251209a39014527506'
+      },
+      body: JSON.stringify({ 
+        "notes": `Upload was successful at ${currentTime}`,
+        "eventType": "Note",
+        "enteredBy": "Background step count upload",  
+        "created_at": now.toISOString(),
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to upload data to API');
+    }
+
+    console.log('Data uploaded to API successfully');
+  } catch (error) {
+    console.error('Error uploading data to API:', error);
+  }
+};
+
 // 1. Define the task by providing a name and the function that should be executed
 // Note: This needs to be called in the global scope (e.g outside of your React components)
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
-  const now = Date.now();
+  console.log(`Background fetch started at date: ${new Date().toISOString()}`);
 
-  console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`);
+  // Call the function to upload data to API
+  await uploadDataToAPI(apiUrl);
 
   // Be sure to return the successful result type!
   return BackgroundFetch.BackgroundFetchResult.NewData;
@@ -21,9 +56,7 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 // Note: This does NOT need to be in the global scope and CAN be used in your React components!
 async function registerBackgroundFetchAsync() {
   return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
-    minimumInterval: 60 * 15, // 15 minutes
-    stopOnTerminate: false, // android only,
-    startOnBoot: true, // android only
+    minimumInterval: 60 * 10, // 10 minutes
   });
 }
 
