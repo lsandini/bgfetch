@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
 import * as Notifications from 'expo-notifications';
+import { useEffect, useState } from 'react';
 
 const BACKGROUND_FETCH_TASK = 'background-fetch';
 
