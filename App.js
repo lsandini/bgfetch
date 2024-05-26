@@ -122,8 +122,10 @@ export default function BackgroundFetchScreen() {
   const toggleFetchTask = async () => {
     if (isRegistered) {
       await unregisterBackgroundFetchAsync();
+      console.log('Unregistered background fetch task');
     } else {
       await registerBackgroundFetchAsync();
+      console.log('Registered background fetch task');
     }
 
     checkStatusAsync();

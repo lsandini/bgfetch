@@ -18,6 +18,9 @@
           "location",
           "fetch",
           "remote-notification"
+        ],
+        "BGTaskSchedulerPermittedIdentifiers": [
+          "com.lsandini.bgfetch"
         ]
       },
       "bundleIdentifier": "com.lsandini.bgfetch"
