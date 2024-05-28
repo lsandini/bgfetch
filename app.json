@@ -23,7 +23,8 @@
           "processing"
         ],
         "BGTaskSchedulerPermittedIdentifiers": [
-          "com.transistorsoft.fetch"
+          "com.transistorsoft.fetch",
+          "com.transistorsoft.customtask"
         ]
       },
       "bundleIdentifier": "com.lsandini.bgfetch"
