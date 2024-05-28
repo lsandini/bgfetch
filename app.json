@@ -11,16 +11,19 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      "react-native-background-fetch"
+    ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
         "UIBackgroundModes": [
-          "location",
           "fetch",
-          "remote-notification"
+          "remote-notification",
+          "processing"
         ],
         "BGTaskSchedulerPermittedIdentifiers": [
-          "com.lsandini.bgfetch"
+          "com.transistorsoft.fetch"
         ]
       },
       "bundleIdentifier": "com.lsandini.bgfetch"

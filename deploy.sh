@@ -1,5 +1,5 @@
 #!/bin/bash
 
 git add .
-git commit -m "rewrite"
-git push -u origin 4o
+git commit -m "init"
+git push -u origin rnbf
