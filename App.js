@@ -80,7 +80,6 @@ export default function App() {
 
   useEffect(() => {
     initBackgroundFetch();
-    // uploadDataToAPI();  // that works !
   }, []);
 
   useEffect(() => {
