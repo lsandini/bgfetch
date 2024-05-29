@@ -77,6 +77,14 @@ export default function App() {
   const [status, setStatus] = useState(-1);
   const [events, setEvents] = useState([]);
 
+  useEffect(() => {
+    initBackgroundFetch();
+  }, []);
+
+  useEffect(() => {
+    loadEvents();
+  }, []);
+
   /// Configure BackgroundFetch.
   ///
   const initBackgroundFetch = async () => {
