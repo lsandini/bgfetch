@@ -1,5 +1,5 @@
 #!/bin/bash
 
 git add .
-git commit -m "added hooks for initBGF and loadEvents"
+git commit -m "works !"
 git push -u origin rnbf

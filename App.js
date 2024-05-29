@@ -13,6 +13,7 @@ import {
 
 import BackgroundFetch from "react-native-background-fetch";
 import * as Notifications from 'expo-notifications';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Colors = {
   gold: '#fedd1e',
@@ -79,10 +80,20 @@ export default function App() {
 
   useEffect(() => {
     initBackgroundFetch();
+    // uploadDataToAPI();  // that works !
   }, []);
 
   useEffect(() => {
     loadEvents();
+  }, []);
+
+  useEffect(() => {
+    AsyncStorage.getItem('events').then((json) => {
+      const data = (json === null) ? [] : JSON.parse(json);
+      console.log(data);
+    }).catch((error) => {
+      console.error('Error reading AsyncStorage: ', error);
+    });
   }, []);
 
   /// Configure BackgroundFetch.
@@ -90,22 +101,19 @@ export default function App() {
   const initBackgroundFetch = async () => {
     const status = await BackgroundFetch.configure({
       minimumFetchInterval: 15,      // <-- minutes (15 is minimum allowed)
-      stopOnTerminate: false,
       enableHeadless: true,
       startOnBoot: true,
-      // Android options
-      forceAlarmManager: false,      // <-- Set true to bypass JobScheduler.
-      requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE, // Default
-      requiresCharging: false,       // Default
-      requiresDeviceIdle: false,     // Default
-      requiresBatteryNotLow: false,  // Default
-      requiresStorageNotLow: false,  // Default
     }, async (taskId) => {
       console.log('[BackgroundFetch] taskId', taskId);
+      console.log('Background task is running!'); // Added console.log statement
       // Create an Event record.
       const event = await Event.create(taskId, false);
       // Update state.
       setEvents((prev) => [...prev, event]);
+
+      // Upload data to API and trigger Notification
+      uploadDataToAPI();
+
       // Finish.
       BackgroundFetch.finish(taskId);
     }, (taskId) => {
@@ -166,10 +174,10 @@ export default function App() {
   const onClickScheduleTask = () => {
     BackgroundFetch.scheduleTask({
       taskId: 'com.transistorsoft.customtask',
-      delay: 5000,
+      delay: 10000,
       forceAlarmManager: true
     }).then(() => {
-      Alert.alert('scheduleTask', 'Scheduled task with delay: 5000ms');
+      Alert.alert('scheduleTask', 'Scheduled task with delay: 10000ms');
     }).catch((error) => {
       Alert.alert('scheduleTask ERROR', error);
     });
