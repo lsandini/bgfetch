@@ -112,7 +112,7 @@ export default function App() {
       setEvents((prev) => [...prev, event]);
 
       // Upload data to API and trigger Notification
-      uploadDataToAPI();
+      // uploadDataToAPI();
 
       // Finish.
       BackgroundFetch.finish(taskId);
